@@ -148,18 +148,18 @@ portfolio-label:
 
 client-slider-items:
   # Technologies slider
-  - logo: "assets/images/tech-logo/tensorflow.png"
-    url: "https://www.tensorflow.org"
+  # - logo: "assets/images/tech-logo/tensorflow.png"
+  #   url: "https://www.tensorflow.org"
 
-  - logo: "assets/images/tech-logo/python-logo.png"
-    url: "https://www.python.org"
+  # - logo: "assets/images/tech-logo/python-logo.png"
+  #   url: "https://www.python.org"
 
-  - logo: "assets/images/tech-logo/kubernetes.png"
-    url: "https://www.kubernetes.io"
+  # - logo: "assets/images/tech-logo/kubernetes.png"
+  #   url: "https://www.kubernetes.io"
 
 
-  - logo: "assets/images/tech-logo/github_logo.png"
-    url: "https://www.github.com"
+  # - logo: "assets/images/tech-logo/github_logo.png"
+  #   url: "https://www.github.com"
 
 
 
