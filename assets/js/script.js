@@ -90,109 +90,109 @@
     $('.testimonial-slider').slick({
         dots: true,
         infinite: true,
-        speed: 300,
+        speed: 0,
         slidesToShow: 1,
         arrows: false,
         adaptiveHeight: true
     });
 
-    async function generate_topology_svg(conf = { random: d3.randomUniform(0,1) , points: 100, color: "#ffa855", height: 600})
-    {
+    // async function generate_topology_svg(conf = { random: d3.randomUniform(0,1) , points: 100, color: "#ffa855", height: 600})
+    // {
 
-        var height = conf.height
-        var width = 800
-        var margin = ({top: 20, right: 30, bottom: 30, left: 40})
+    //     var height = conf.height
+    //     var width = 800
+    //     var margin = ({top: 20, right: 30, bottom: 30, left: 40})
 
-        const sqrt3 = 3; //Math.sqrt(10);
-        var data = [].concat(
-            Array.from({length: conf.points}, () => ({x: conf.random() + sqrt3, y: conf.random()})),
-            Array.from({length: conf.points}, () => ({x: conf.random() - sqrt3, y: conf.random()})),
-            Array.from({length: conf.points}, () => ({x: conf.random(), y: conf.random()+2}))
-        );
+    //     const sqrt3 = 3; //Math.sqrt(10);
+    //     var data = [].concat(
+    //         Array.from({length: conf.points}, () => ({x: conf.random() + sqrt3, y: conf.random()})),
+    //         Array.from({length: conf.points}, () => ({x: conf.random() - sqrt3, y: conf.random()})),
+    //         Array.from({length: conf.points}, () => ({x: conf.random(), y: conf.random()+2}))
+    //     );
 
-        const svg = d3.create("svg")
-            .attr("viewBox", [0, 0, width, height]);
+    //     const svg = d3.create("svg")
+    //         .attr("viewBox", [0, 0, width, height]);
 
-        var x = d3.scaleLinear()
-            .domain(d3.extent(data, d => d.x)).nice()
-            .rangeRound([margin.left, width - margin.right])
+    //     var x = d3.scaleLinear()
+    //         .domain(d3.extent(data, d => d.x)).nice()
+    //         .rangeRound([margin.left, width - margin.right])
 
-        var y = d3.scaleLinear()
-            .domain(d3.extent(data, d => d.y)).nice()
-            .rangeRound([height - margin.bottom, margin.top])
+    //     var y = d3.scaleLinear()
+    //         .domain(d3.extent(data, d => d.y)).nice()
+    //         .rangeRound([height - margin.bottom, margin.top])
 
-        var contours = d3.contourDensity()
-            .x(d => x(d.x))
-            .y(d => y(d.y))
-            .size([width, height])
-            .bandwidth(30)
-            .thresholds(30)
-        (data)
+    //     var contours = d3.contourDensity()
+    //         .x(d => x(d.x))
+    //         .y(d => y(d.y))
+    //         .size([width, height])
+    //         .bandwidth(30)
+    //         .thresholds(30)
+    //     (data)
 
-        svg.append("g")
-            .attr("fill", "none")
-            .attr("stroke", conf.color)
-            .attr("stroke-linejoin", "round")
-        .selectAll("path")
-        .data(contours)
-        .join("path")
-            .attr("stroke-width", (d, i) => i % 5 ? 0.25 : 1)
-            .attr("d", d3.geoPath());
+    //     svg.append("g")
+    //         .attr("fill", "none")
+    //         .attr("stroke", conf.color)
+    //         .attr("stroke-linejoin", "round")
+    //     .selectAll("path")
+    //     .data(contours)
+    //     .join("path")
+    //         .attr("stroke-width", (d, i) => i % 5 ? 0.25 : 1)
+    //         .attr("d", d3.geoPath());
 
-        svg.append("g")
-            .attr("stroke", "white")
-        .selectAll("circle")
-        .data(data)
-        .join("circle")
-            .attr("cx", d => x(d.x))
-            .attr("cy", d => y(d.y));
-            // .attr("r", 2);
+    //     svg.append("g")
+    //         .attr("stroke", "white")
+    //     .selectAll("circle")
+    //     .data(data)
+    //     .join("circle")
+    //         .attr("cx", d => x(d.x))
+    //         .attr("cy", d => y(d.y));
+    //         // .attr("r", 2);
 
-        return svg.node();
-    }
+    //     return svg.node();
+    // }
 
-    // contour plot hero
-    async function generate_contour_hero() {
-        var contour_plot_container = document.getElementById("contour-plot-hero")
-        if (contour_plot_container == null)
-            {return null}
+    // // contour plot hero
+    // async function generate_contour_hero() {
+    //     var contour_plot_container = document.getElementById("contour-plot-hero")
+    //     if (contour_plot_container == null)
+    //         {return null}
 
-        const svg_node = await generate_topology_svg({random: d3.randomNormal(0, 7),
-                                                      points: 15,
-                                                      color:"#ffa855",
-                                                      height: 600})
+    //     const svg_node = await generate_topology_svg({random: d3.randomNormal(0, 7),
+    //                                                   points: 15,
+    //                                                   color:"#ffa855",
+    //                                                   height: 600})
 
-        contour_plot_container.classList.add('fade-in');
+    //     contour_plot_container.classList.add('fade-in');
 
-        contour_plot_container.appendChild(svg_node);
-    }
-    // contour plot bg
-    async function generate_contour_bg() {
-        var contour_plot_container = document.getElementById("contour-bg-body")
-        if (contour_plot_container == null)
-            {return null}
+    //     contour_plot_container.appendChild(svg_node);
+    // }
+    // // contour plot bg
+    // async function generate_contour_bg() {
+    //     var contour_plot_container = document.getElementById("contour-bg-body")
+    //     if (contour_plot_container == null)
+    //         {return null}
 
-        const svg_node = await generate_topology_svg({random: d3.randomUniform(0, 100),
-                                                      points: 10,
-                                                      color: "#ffa855",
-                                                      height: 1200})
+    //     const svg_node = await generate_topology_svg({random: d3.randomUniform(0, 100),
+    //                                                   points: 10,
+    //                                                   color: "#ffa855",
+    //                                                   height: 1200})
 
-        contour_plot_container.classList.add('fade-in');
+    //     contour_plot_container.classList.add('fade-in');
 
-        contour_plot_container.appendChild(svg_node);
-    }
+    //     contour_plot_container.appendChild(svg_node);
+    // }
 
-    window.onload = function(){
-        generate_contour_hero();
-        generate_contour_bg();
-    };
+    // window.onload = function(){
+    //     generate_contour_hero();
+    //     generate_contour_bg();
+    // };
 
     // clients logo slider
     $('.client-logo-slider').slick({
         infinite: true,
         slidesToShow: 2,
         slidesToScroll: 1,
-        autoplay: true,
+        autoplay: false,
         dots: false,
         arrows: false,
         responsive: [{
